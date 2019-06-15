@@ -2,10 +2,8 @@
 
 import { Layout, Menu, Icon } from "antd";
 import "./index.css";
-import AddEmployee from "../../components/Employees/AddEmployee"
 
 const { Header, Sider, Content } = Layout;
-
 
 class Dashboard extends Component {
   state = {
@@ -19,6 +17,7 @@ class Dashboard extends Component {
   };
 
   render() {
+    const { children } = this.props;
     return (
       <Layout style={{ minHeight: "100vh" }}>
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
@@ -53,8 +52,8 @@ class Dashboard extends Component {
               background: "#fff",
               minHeight: 280
             }}
-                >
-                    <AddEmployee/>
+          >
+            {children}
           </Content>
         </Layout>
       </Layout>

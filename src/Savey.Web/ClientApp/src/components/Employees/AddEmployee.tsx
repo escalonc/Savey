@@ -1,5 +1,4 @@
-﻿
-import React, { Component } from "react";
+﻿import React, { Component } from "react";
 
 import {
   Form,
@@ -19,41 +18,6 @@ import { FormComponentProps } from "antd/lib/form";
 
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
-
-const residences = [
-  {
-    value: "zhejiang",
-    label: "Zhejiang",
-    children: [
-      {
-        value: "hangzhou",
-        label: "Hangzhou",
-        children: [
-          {
-            value: "xihu",
-            label: "West Lake"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    value: "jiangsu",
-    label: "Jiangsu",
-    children: [
-      {
-        value: "nanjing",
-        label: "Nanjing",
-        children: [
-          {
-            value: "zhonghuamen",
-            label: "Zhong Hua Men"
-          }
-        ]
-      }
-    ]
-  }
-];
 
 interface Props extends FormComponentProps {}
 
@@ -84,11 +48,13 @@ class AddEmployee extends Component<Props, {}> {
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 8 }
+        sm: { span: 8 },
+        md: { span: 2, offset: 6 }
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 16 }
+        sm: { span: 16 },
+        md: { span: 8 }
       }
     };
     const tailFormItemLayout = {
@@ -100,25 +66,17 @@ class AddEmployee extends Component<Props, {}> {
         sm: {
           span: 16,
           offset: 8
+        },
+        md: {
+          span: 8,
+          offset: 8
         }
       }
     };
-    const prefixSelector = getFieldDecorator("prefix", {
-      initialValue: "86"
-    })(
-      <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    );
-
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-        <Form.Item label={<span>Primer Nombre&nbsp;</span>}>
+        <Form.Item label={<span>Primer Nombre</span>}>
           {getFieldDecorator("firstName", {
             rules: [
               {
@@ -129,7 +87,7 @@ class AddEmployee extends Component<Props, {}> {
             ]
           })(<Input />)}
         </Form.Item>
-        <Form.Item label={<span>Segundo Nombre&nbsp;</span>}>
+        <Form.Item label={<span>Segundo Nombre</span>}>
           {getFieldDecorator("middleName", {
             rules: [
               {
@@ -140,7 +98,7 @@ class AddEmployee extends Component<Props, {}> {
             ]
           })(<Input />)}
         </Form.Item>
-        <Form.Item label={<span>Primer Apellido&nbsp;</span>}>
+        <Form.Item label={<span>Primer Apellido</span>}>
           {getFieldDecorator("surname", {
             rules: [
               {
@@ -151,7 +109,7 @@ class AddEmployee extends Component<Props, {}> {
             ]
           })(<Input />)}
         </Form.Item>
-        <Form.Item label={<span>Segundo Apellido&nbsp;</span>}>
+        <Form.Item label={<span>Segundo Apellido</span>}>
           {getFieldDecorator("secondSurname", {
             rules: [
               {
@@ -162,9 +120,16 @@ class AddEmployee extends Component<Props, {}> {
             ]
           })(<Input />)}
         </Form.Item>
-            <Form.Item label="Fecha inicio empresa">
-                <DatePicker />
-                </Form.Item >
+        <Form.Item label="Fecha inicio">
+          {getFieldDecorator("date", {
+            rules: [
+              {
+                required: true,
+                message: "La fecha de inicio es obligatoria"
+              }
+            ]
+          })(<DatePicker />)}
+        </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
             Registro
