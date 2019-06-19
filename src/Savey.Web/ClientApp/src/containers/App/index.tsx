@@ -1,13 +1,13 @@
 import React from "react";
 import "antd/dist/antd.css";
 import Dashboard from "../Dashboard";
-import AddEmployee from "../../components/Employees/AddEmployee";
+import AddMember from "../../components/Employees/AddMember";
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <Dashboard>
-        <AddEmployee />
+        <AddMember />
       </Dashboard>
     </div>
   );

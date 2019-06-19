@@ -3,47 +3,66 @@
 import {
   Form,
   Input,
-  Tooltip,
-  Icon,
-  Cascader,
-  Select,
-  Row,
-  Col,
-  Checkbox,
   Button,
-  AutoComplete,
   DatePicker
 } from "antd";
 import { FormComponentProps } from "antd/lib/form";
-
-const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
+import MemberService from "./MemberService";
 
 interface Props extends FormComponentProps {}
 
-class AddEmployee extends Component<Props, {}> {
-  state = {
-    confirmDirty: false,
-    autoCompleteResult: []
-  };
+interface State {
+  firstName: string;
+  middleName: string;
+  firstSurname: string;
+  secondSurname: string;
+}
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+class AddMember extends Component<Props, State> {
+  
+  state: State = {
+    firstName: "",
+    firstSurname: "",
+    middleName: "",
+    secondSurname: ""
+  };
+  
+  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        console.log("Received values of form: ", values);
-      }
-    });
+    
+    const service = new MemberService();
+    
+    const { firstName,middleName,firstSurname,secondSurname } = this.state;
+    
+    await service.create({firstName,firstSurname,middleName,secondSurname})
+   
+  };
+  
+  handleChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ firstName: event.target.value })
   };
 
-  handleConfirmBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+  handleChangeMiddleName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ middleName: event.target.value })
   };
 
+  handleChangeFirstSurname = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ firstSurname: event.target.value })
+  };
+
+  handleChangeSecondSurname = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ secondSurname: event.target.value })
+  };
+
+  
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { autoCompleteResult } = this.state;
+    const {
+      secondSurname,
+        firstSurname,
+         firstName,
+        middleName,
+    } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -78,53 +97,57 @@ class AddEmployee extends Component<Props, {}> {
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
         <Form.Item label={<span>Primer Nombre</span>}>
           {getFieldDecorator("firstName", {
+            initialValue: firstName,
             rules: [
               {
-                required: true,
+                // required: true,
                 message: "Inserte su Primer Nombre!",
                 whitespace: true
               }
             ]
-          })(<Input />)}
+          })(<Input name="firstName" onChange={this.handleChangeFirstName}/>)}
         </Form.Item>
-        <Form.Item label={<span>Segundo Nombre</span>}>
+        <Form.Item label={<span>Segundo Nombre</span>} >
           {getFieldDecorator("middleName", {
+            initialValue: middleName,
             rules: [
               {
-                required: true,
+                // required: true,
                 message: "Please input your nickname!",
                 whitespace: true
               }
             ]
-          })(<Input />)}
+          })(<Input name="middleName" onChange={this.handleChangeMiddleName} />)}
         </Form.Item>
         <Form.Item label={<span>Primer Apellido</span>}>
-          {getFieldDecorator("surname", {
+          {getFieldDecorator("firstSurname", {
+            initialValue: firstSurname,
             rules: [
               {
-                required: true,
+                // required: true,
                 message: "Please input your surname!",
                 whitespace: true
               }
             ]
-          })(<Input />)}
+          })(<Input name="firstSurname" onChange={this.handleChangeFirstSurname} />)}
         </Form.Item>
         <Form.Item label={<span>Segundo Apellido</span>}>
           {getFieldDecorator("secondSurname", {
+            initialValue: secondSurname,
             rules: [
               {
-                required: true,
+                // required: true,
                 message: "Please input your second surname!",
                 whitespace: true
               }
             ]
-          })(<Input />)}
+          })(<Input name="secondSurname" onChange={this.handleChangeSecondSurname} />)}
         </Form.Item>
         <Form.Item label="Fecha inicio">
           {getFieldDecorator("date", {
             rules: [
               {
-                required: true,
+                // required: true,
                 message: "La fecha de inicio es obligatoria"
               }
             ]
@@ -140,4 +163,4 @@ class AddEmployee extends Component<Props, {}> {
   }
 }
 
-export default Form.create<Props>()(AddEmployee);
+export default Form.create<Props>()(AddMember);
