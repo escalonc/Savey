@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Savey.Data.Entities;
+using Savey.Data.Factories;
+using Savey.Data.Repositories;
 
 namespace Savey.Web
 {
@@ -25,11 +27,11 @@ namespace Savey.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<SaveyContext>(options =>
-                options.UseDb2(Configuration.GetConnectionString("DefaultConnection"),
-                    p => p.SetServerInfo(IBMDBServerType.LUW)));
-
-           services.AddTransient<SaveyContext>();
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddTransient<IConnectionFactory, Db2ConnectionFactory>();
+            
+            services.AddTransient<IBaseRepository<Member>, MemberRepository>();
+            services.AddTransient<IBaseRepository<Loan>, LoanRepository>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });

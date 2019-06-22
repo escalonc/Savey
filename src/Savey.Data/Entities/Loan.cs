@@ -3,21 +3,23 @@ using System.Collections.Generic;
 
 namespace Savey.Data.Entities
 {
-    public partial class Prestamos
+    public class Loan
     {
-        public Prestamos()
+        public Loan()
         {
-            Pagos = new HashSet<Pagos>();
+            Payments = new HashSet<Payment>();
         }
 
-        public int? AfiliadoId { get; set; }
-        public bool? EstaPagado { get; set; }
-        public DateTime Fecha { get; set; }
         public int Id { get; set; }
-        public decimal? Monto { get; set; }
-        public int Periodo { get; set; }
-        public decimal Saldo { get; set; }
+        public int? MemberId { get; set; }
+        public bool? IsPayed { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Amount { get; set; }
+        public int Period { get; set; }
+        public decimal Balance { get; set; }
+        public decimal AnnualInterest { get; set; }
+        public string LoanType { get; set; }
 
-        public ICollection<Pagos> Pagos { get; set; }
+        public ICollection<Payment> Payments { get; set; }
     }
 }

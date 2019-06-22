@@ -1,4 +1,5 @@
 ﻿namespace Savey.Data.Entities
+
 {
     public partial class Liquidaciones
     {

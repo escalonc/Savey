@@ -1,13 +1,23 @@
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using Savey.Data.Entities;
+using Savey.Data.Factories;
 
 namespace Savey.Web.Controllers
 {
-    public class AccountController : Controller
+    [Route("api/[controller]")]
+    public class AccountsController : ControllerBase
     {
-        // GET
-        public IActionResult Index()
+
+        private readonly IConnectionFactory _connectionFactory;
+        public AccountsController(IConnectionFactory connectionFactory)
         {
-            return View();
+            this._connectionFactory = connectionFactory;
         }
+        
     }
+
+
 }

@@ -1,33 +1,39 @@
-import React, { ChangeEvent, Component } from "react";
-import { Button, DatePicker, Form, Input, InputNumber, Select } from "antd";
+import React, { Component } from "react";
+import { Button, Form, Input, InputNumber, Select } from "antd";
 import LoanService from "./LoanService";
 import { FormComponentProps } from "antd/lib/form";
 import MemberService from "../Members/MemberService";
 import MemberModel from "../Members/MemberModel";
+import LoanModel from "./LoanModel";
 
 interface State {
   amount: number;
+  maxAmount: number;
   period: number;
   isPayed: boolean;
   annualInterest: number;
   loanType: string;
   memberId: number;
   members: MemberModel[];
+  formDisabled: boolean;
 }
 
 interface Props extends FormComponentProps {}
 
 class AddLoan extends Component<Props, State> {
   private memberService = new MemberService();
+  private loanService = new LoanService();
 
   state: State = {
     amount: 0,
     period: 12,
     isPayed: false,
-    annualInterest: 3,
+    annualInterest: 0,
     loanType: "TRUST",
     memberId: 1,
-    members: []
+    members: [],
+    maxAmount: 0,
+    formDisabled: false
   };
 
   async componentDidMount() {
@@ -42,11 +48,18 @@ class AddLoan extends Component<Props, State> {
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // const service = new MemberService();
-    //
-    // const { firstName,middleName,firstSurname,secondSurname } = this.state;
-    //
-    // await service.create({firstName,firstSurname,middleName,secondSurname})
+    const { annualInterest, amount, memberId, loanType, period } = this.state;
+
+    const loan: LoanModel = {
+      annualInterest: annualInterest,
+      amount,
+      memberId,
+      loanType,
+      period,
+      isPayed: false
+    };
+
+    await this.loanService.create(loan);
   };
 
   filterOptions = (input: string, option: any) => {
@@ -54,14 +67,37 @@ class AddLoan extends Component<Props, State> {
     return children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
   };
 
-  handleMemberChange = (memberId: number) => {
+  handleMemberChange = async (memberId: number) => {
+    const count = await this.memberService.countExistingLoans(memberId);
+
+    this.setState({ formDisabled: !(count > 0) });
+
     this.setState({ memberId });
   };
 
   handlePeriodChange = (value: number | undefined) =>
     this.setState({ period: value || 1 });
 
-  handleLoanTypeChange = (loanType: string) => this.setState({ loanType });
+  handleLoanTypeChange = async (loanType: string) => {
+    const { memberId } = this.state;
+    this.setState({ loanType }, async () => {
+      if (loanType === "AUTO") {
+        const maxAmount = await this.memberService.contributionAccountBalance(
+          memberId
+        );
+
+        this.setState({ maxAmount });
+        this.setState({ annualInterest: 10 });
+      } else {
+        this.setState({ maxAmount: 10000 });
+        this.setState({ annualInterest: 15 });
+      }
+    });
+  };
+
+  handleAmountChange = (value: number | undefined) => {
+    this.setState({ amount: value || 0 });
+  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -69,13 +105,12 @@ class AddLoan extends Component<Props, State> {
     const {
       period,
       loanType,
-      isPayed,
-      date,
-      balance,
       annualInterest,
       amount,
       members,
-      memberId
+      memberId,
+      maxAmount,
+      formDisabled
     } = this.state;
 
     const formItemLayout = {
@@ -125,6 +160,7 @@ class AddLoan extends Component<Props, State> {
               placeholder="Seleccione un empleado"
               optionFilterProp="children"
               onChange={this.handleMemberChange}
+              onBlur={this.handleMemberChange}
               filterOption={this.filterOptions}
             >
               {members.map(member => (
@@ -145,16 +181,11 @@ class AddLoan extends Component<Props, State> {
               }
             ]
           })(
-            <InputNumber
-              name="secondSurname"
-              min={1}
-              max={12}
-              onChange={this.handlePeriodChange}
-            />
+            <InputNumber min={1} max={12} onChange={this.handlePeriodChange} />
           )}
         </Form.Item>
         <Form.Item label={<span>Tipo</span>}>
-          {getFieldDecorator("member", {
+          {getFieldDecorator("loanType", {
             initialValue: loanType,
             rules: [
               {
@@ -167,12 +198,35 @@ class AddLoan extends Component<Props, State> {
               style={{ width: 200 }}
               optionFilterProp="children"
               onChange={this.handleLoanTypeChange}
+              onBlur={this.handleLoanTypeChange}
               filterOption={this.filterOptions}
             >
               <Option value="TRUST">Fiduciario</Option>
               <Option value="AUTO">Automatico</Option>
             </Select>
           )}
+        </Form.Item>
+        <Form.Item label={<span>Interés anual</span>}>
+          {getFieldDecorator("annualInterest", {
+            initialValue: annualInterest
+          })(<Input disabled={true} />)}
+        </Form.Item>
+
+        <Form.Item label={<span>Monto</span>}>
+          {getFieldDecorator("amount", {
+            initialValue: amount
+          })(
+            <InputNumber
+              onChange={this.handleAmountChange}
+              max={maxAmount}
+              min={500}
+            />
+          )}
+        </Form.Item>
+        <Form.Item {...tailFormItemLayout}>
+          <Button type="primary" htmlType="submit" disabled={formDisabled}>
+            Registro
+          </Button>
         </Form.Item>
       </Form>
     );

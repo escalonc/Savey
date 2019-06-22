@@ -2,7 +2,7 @@
 
 namespace Savey.Data.Entities
 {
-    public partial class Pagos
+    public partial class Payment
     {
         public DateTime Fecha { get; set; }
         public int Id { get; set; }
@@ -11,6 +11,6 @@ namespace Savey.Data.Entities
         public int? NumeroPago { get; set; }
         public int? PrestamoId { get; set; }
 
-        public Prestamos Prestamo { get; set; }
+        public Loan Loan { get; set; }
     }
 }

@@ -36,6 +36,17 @@
     <ProjectReference Include="..\Savey.Infrastructure\Savey.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\components\Members\AddMember.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\Members\MemberModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\components\Members\MemberService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\components\Loans\AddLoan.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\Loans\LoanModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\components\Loans\LoanService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\components\Payments\AddPayment.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\config.ts" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

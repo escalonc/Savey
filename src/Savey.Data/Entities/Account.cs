@@ -2,13 +2,12 @@
 
 namespace Savey.Data.Entities
 {
-    public partial class Cuentas
+    public class Account
     {
-        public int? AfiliadoId { get; set; }
-        public DateTime FechaApertura { get; set; }
+        public int? MemberId { get; set; }
+        public DateTime OpeningDate { get; set; }
         public int Id { get; set; }
-        public int NumeroCuenta { get; set; }
-        public decimal? Saldo { get; set; }
-        public string Tipo { get; set; }
+        public decimal Balance { get; set; }
+        public string AccountType { get; set; }
     }
 }
