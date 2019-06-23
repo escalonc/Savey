@@ -1,15 +1,10 @@
 interface MembersReportModel {
-    
-    MemberId: number;
-    Member: string,
-    StartDate: Date,
-    Investment: number;
-    Saving: number;
-    total: number;
-
-
-
+  memberId: number;
+  member: string;
+  startDate: Date;
+  investment?: number;
+  saving?: number;
+  total?: number;
 }
 
-export default MembersReportModel
-    
+export default MembersReportModel;
