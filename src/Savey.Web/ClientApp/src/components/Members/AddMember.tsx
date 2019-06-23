@@ -5,6 +5,7 @@ import { FormComponentProps } from "antd/lib/form";
 import MemberService from "./MemberService";
 import { RouteComponentProps } from "@reach/router";
 import Title from "antd/lib/typography/Title";
+import openNotificationWithIcon from "../../Utils";
 
 interface Props extends FormComponentProps, RouteComponentProps {}
 
@@ -30,12 +31,17 @@ class AddMember extends Component<Props, State> {
 
     const { firstName, middleName, firstSurname, secondSurname } = this.state;
 
-    await service.create({
-      firstName,
-      firstSurname,
-      middleName,
-      secondSurname
-    });
+    try {
+      await service.create({
+        firstName,
+        firstSurname,
+        middleName,
+        secondSurname
+      });
+      openNotificationWithIcon();
+    }catch (e) {
+      
+    }
   };
 
   handleChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {

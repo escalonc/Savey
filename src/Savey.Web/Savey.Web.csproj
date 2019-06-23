@@ -55,6 +55,7 @@
     <TypeScriptCompile Include="ClientApp\src\components\Transactions\AddTransaction.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\Transactions\TransactionModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\config.ts" />
+    <TypeScriptCompile Include="ClientApp\src\Utils.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

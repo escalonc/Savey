@@ -36,8 +36,6 @@ namespace Savey.Web.Controllers
                 parameters.Add(":P_DATE", DateTime.Now, DbType.Date);
                 parameters.Add(":P_AMOUNT", trasanction.Amount, DbType.Decimal);
                 parameters.Add(":P_TYPE", trasanction.Type, DbType.String);
-
-                parameters.Add(":P_DESCRIPTION", trasanction.Description, DbType.String);
                 parameters.Add(":P_ACCOUNT_ID", trasanction.AccountId, DbType.Int32);
 
                 await connection.ExecuteAsync("SAVEY_APP.CREATE_TRASACTIONS", parameters,
