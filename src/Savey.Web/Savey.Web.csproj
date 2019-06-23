@@ -51,6 +51,7 @@
     <TypeScriptCompile Include="ClientApp\src\components\Reports\MembersReportModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\Reports\ReportService.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\Payments\PaymentModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\components\Transactions\TransactionModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\config.ts" />
   </ItemGroup>
 

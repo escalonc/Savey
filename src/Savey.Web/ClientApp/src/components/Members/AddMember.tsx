@@ -88,6 +88,8 @@ class AddMember extends Component<Props, State> {
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+
+        <h2> Crear un Afiliado </h2>
         <Form.Item label={<span>Primer Nombre</span>}>
           {getFieldDecorator("firstName", {
             initialValue: firstName,

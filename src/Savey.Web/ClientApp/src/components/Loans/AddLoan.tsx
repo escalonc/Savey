@@ -145,7 +145,11 @@ class AddLoan extends Component<Props, State> {
     };
 
     return (
+        
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+
+        <h2> Crear Prestamo para un Afiliado </h2>
+        
         <Form.Item label={<span>Empleado</span>}>
           {getFieldDecorator("member", {
             initialValue: memberId,
