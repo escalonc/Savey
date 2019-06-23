@@ -6,11 +6,15 @@ class PaymentService {
   constructor(private paymentsUrl = `${config.baseUrl}/payments`) {}
 
   async create(memberId: number): Promise<PaymentModel> {
-    const response = await axios.post(this.paymentsUrl, memberId, {
-      headers: {
-        "Content-Type": "application/json"
+    const response = await axios.post(
+      this.paymentsUrl,
+      { memberId } as PaymentModel,
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
       }
-    });
+    );
 
     return response.data as PaymentModel;
   }

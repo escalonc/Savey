@@ -31,7 +31,7 @@ class AddLoan extends Component<Props, State> {
     amount: 0,
     period: 12,
     isPayed: false,
-    annualInterest: 0.1,
+    annualInterest: 15,
     loanType: "TRUST",
     memberId: 1,
     members: [],
@@ -90,10 +90,10 @@ class AddLoan extends Component<Props, State> {
         );
 
         this.setState({ maxAmount });
-        this.setState({ annualInterest: 0.1 });
+        this.setState({ annualInterest: 10 });
       } else {
         this.setState({ maxAmount: 10000 });
-        this.setState({ annualInterest: 0.15 });
+        this.setState({ annualInterest: 15 });
       }
     });
   };

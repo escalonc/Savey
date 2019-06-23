@@ -36,7 +36,7 @@ namespace Savey.Web.Controllers
             var newLoan = new Loan
             {
                 Amount = loan.Amount,
-                Balance = loan.Amount * (loan.AnnualInterest + 1),
+                Balance = loan.Amount * ((loan.AnnualInterest/100) + 1),
                 Date = DateTime.Now,
                 Period = loan.Period,
                 AnnualInterest = loan.AnnualInterest,

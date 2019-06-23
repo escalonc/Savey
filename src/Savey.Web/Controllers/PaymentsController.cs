@@ -20,13 +20,13 @@ namespace Savey.Web.Controllers
             this._connectionFactory = connectionFactory;
         }
 
-        // GET
-        public async Task<ActionResult> Create(int memberId)
+        [HttpPost]
+        public async Task<ActionResult> Create(Payment pay)
         {
             using (var connection = this._connectionFactory.Create())
             {
                 var data = await connection.QueryAsync(
-                    $"SELECT ID, DATE, AMOUNT, PERIOD, BALANCE, IS_PAYED, MEMBER_ID, ANNUAL_INTEREST, TYPE FROM SAVEY_APP.LOANS WHERE MEMBER_ID = {memberId}");
+                    $"SELECT ID, DATE, AMOUNT, PERIOD, BALANCE, IS_PAYED, MEMBER_ID, ANNUAL_INTEREST, TYPE FROM SAVEY_APP.LOANS WHERE MEMBER_ID = {pay.MemberId}");
                 var loan = data.Select(x => new Loan
                 {
                     Amount = x.AMOUNT,
@@ -34,7 +34,6 @@ namespace Savey.Web.Controllers
                     Id = x.ID,
                     AnnualInterest = x.ANNUAL_INTEREST,
                     Period = x.PERIOD,
-                    IsPayed = x.IS_PAYED,
                     Balance = x.BALANCE,
                     LoanType = x.TYPE
                 }).First();
@@ -43,8 +42,8 @@ namespace Savey.Web.Controllers
                 {
                     Amount = loan.Amount / loan.Period,
                     Date = DateTime.Now,
-                    Interest = (loan.AnnualInterest * loan.Amount) / 12,
-                    MemberId = memberId,
+                    Interest = ((loan.AnnualInterest / 100) * loan.Amount) / 12,
+                    MemberId = pay.MemberId,
                     LoanId = loan.Id
                 };
 
@@ -55,7 +54,7 @@ namespace Savey.Web.Controllers
                 parameters.Add(":P_AMOUNT", payment.Amount, DbType.Decimal);
                 parameters.Add(":P_LOAN_ID", payment.LoanId, DbType.Int32);
 
-                await connection.ExecuteAsync("SAVEY_APP.CREATE_LOAN", parameters,
+                await connection.ExecuteAsync("SAVEY_APP.CREATE_PAYMENT", parameters,
                     commandType: CommandType.StoredProcedure);
 
                 return this.Json(payment);
