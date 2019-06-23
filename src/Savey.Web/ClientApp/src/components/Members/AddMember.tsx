@@ -4,6 +4,7 @@ import { Form, Input, Button, DatePicker } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import MemberService from "./MemberService";
 import { RouteComponentProps } from "@reach/router";
+import Title from "antd/lib/typography/Title";
 
 interface Props extends FormComponentProps, RouteComponentProps {}
 
@@ -87,85 +88,90 @@ class AddMember extends Component<Props, State> {
     };
 
     return (
-      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-
-        <h2> Crear un Afiliado </h2>
-        <Form.Item label={<span>Primer Nombre</span>}>
-          {getFieldDecorator("firstName", {
-            initialValue: firstName,
-            rules: [
-              {
-                // required: true,
-                message: "Inserte su Primer Nombre!",
-                whitespace: true
-              }
-            ]
-          })(<Input name="firstName" onChange={this.handleChangeFirstName} />)}
-        </Form.Item>
-        <Form.Item label={<span>Segundo Nombre</span>}>
-          {getFieldDecorator("middleName", {
-            initialValue: middleName,
-            rules: [
-              {
-                // required: true,
-                message: "Please input your nickname!",
-                whitespace: true
-              }
-            ]
-          })(
-            <Input name="middleName" onChange={this.handleChangeMiddleName} />
-          )}
-        </Form.Item>
-        <Form.Item label={<span>Primer Apellido</span>}>
-          {getFieldDecorator("firstSurname", {
-            initialValue: firstSurname,
-            rules: [
-              {
-                // required: true,
-                message: "Please input your surname!",
-                whitespace: true
-              }
-            ]
-          })(
-            <Input
-              name="firstSurname"
-              onChange={this.handleChangeFirstSurname}
-            />
-          )}
-        </Form.Item>
-        <Form.Item label={<span>Segundo Apellido</span>}>
-          {getFieldDecorator("secondSurname", {
-            initialValue: secondSurname,
-            rules: [
-              {
-                // required: true,
-                message: "Please input your second surname!",
-                whitespace: true
-              }
-            ]
-          })(
-            <Input
-              name="secondSurname"
-              onChange={this.handleChangeSecondSurname}
-            />
-          )}
-        </Form.Item>
-        <Form.Item label="Fecha inicio">
-          {getFieldDecorator("date", {
-            rules: [
-              {
-                // required: true,
-                message: "La fecha de inicio es obligatoria"
-              }
-            ]
-          })(<DatePicker />)}
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
-            Registro
-          </Button>
-        </Form.Item>
-      </Form>
+      <>
+        <div style={{ textAlign: "center", marginBottom: 50 }}>
+          <Title level={3}>Crear un Afiliado</Title>
+        </div>
+        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+          <Form.Item label={<span>Primer Nombre</span>}>
+            {getFieldDecorator("firstName", {
+              initialValue: firstName,
+              rules: [
+                {
+                  // required: true,
+                  message: "Inserte su Primer Nombre!",
+                  whitespace: true
+                }
+              ]
+            })(
+              <Input name="firstName" onChange={this.handleChangeFirstName} />
+            )}
+          </Form.Item>
+          <Form.Item label={<span>Segundo Nombre</span>}>
+            {getFieldDecorator("middleName", {
+              initialValue: middleName,
+              rules: [
+                {
+                  // required: true,
+                  message: "Please input your nickname!",
+                  whitespace: true
+                }
+              ]
+            })(
+              <Input name="middleName" onChange={this.handleChangeMiddleName} />
+            )}
+          </Form.Item>
+          <Form.Item label={<span>Primer Apellido</span>}>
+            {getFieldDecorator("firstSurname", {
+              initialValue: firstSurname,
+              rules: [
+                {
+                  // required: true,
+                  message: "Please input your surname!",
+                  whitespace: true
+                }
+              ]
+            })(
+              <Input
+                name="firstSurname"
+                onChange={this.handleChangeFirstSurname}
+              />
+            )}
+          </Form.Item>
+          <Form.Item label={<span>Segundo Apellido</span>}>
+            {getFieldDecorator("secondSurname", {
+              initialValue: secondSurname,
+              rules: [
+                {
+                  // required: true,
+                  message: "Please input your second surname!",
+                  whitespace: true
+                }
+              ]
+            })(
+              <Input
+                name="secondSurname"
+                onChange={this.handleChangeSecondSurname}
+              />
+            )}
+          </Form.Item>
+          <Form.Item label="Fecha inicio">
+            {getFieldDecorator("date", {
+              rules: [
+                {
+                  // required: true,
+                  message: "La fecha de inicio es obligatoria"
+                }
+              ]
+            })(<DatePicker />)}
+          </Form.Item>
+          <Form.Item {...tailFormItemLayout}>
+            <Button type="primary" htmlType="submit">
+              Registro
+            </Button>
+          </Form.Item>
+        </Form>
+      </>
     );
   }
 }

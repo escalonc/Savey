@@ -19,6 +19,7 @@ const App: React.FC = () => {
           <AddLoan path="loans/add" />
           <AddPayment path="payments/add" />
           <AddMember path="members/add" />
+          <AddMember path="/" />
           <DividendsReport path="reports/dividends" />
           <MembersReport path="reports/members" />
         </Router>

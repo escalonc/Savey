@@ -28,19 +28,19 @@ class Dashboard extends Component {
             <Menu.Item key="1">
               <Link to="members/add">
                 <Icon type="user" />
-                <span>Members</span>
+                <span>Miembros</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="2">
               <Link to="loans/add">
                 <Icon type="video-camera" />
-                <span>Laons</span>
+                <span>Prestamos</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="3">
               <Link to="payments/add">
                 <Icon type="upload" />
-                <span>Payments</span>
+                <span>Pagos</span>
               </Link>
             </Menu.Item>
             <SubMenu
@@ -48,7 +48,7 @@ class Dashboard extends Component {
               title={
                 <span>
                   <Icon type="fund" />
-                  <span>User</span>
+                  <span>Reportes</span>
                 </span>
               }
             >
