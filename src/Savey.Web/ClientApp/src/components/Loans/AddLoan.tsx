@@ -8,6 +8,7 @@ import LoanModel from "./LoanModel";
 
 import { RouteComponentProps } from "@reach/router";
 import Title from "antd/lib/typography/Title";
+import openNotificationWithIcon from "../../Utils";
 
 interface State {
   amount: number;
@@ -62,7 +63,16 @@ class AddLoan extends Component<Props, State> {
       isPayed: false
     };
 
-    await this.loanService.create(loan);
+    
+    try {
+
+      await this.loanService.create(loan);
+      openNotificationWithIcon();
+    }
+    catch (e) {
+      
+    }
+    
   };
 
   filterOptions = (input: string, option: any) => {

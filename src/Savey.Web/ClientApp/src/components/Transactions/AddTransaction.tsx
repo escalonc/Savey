@@ -6,6 +6,7 @@ import { Button, Form, Input, Select } from "antd";
 import SelectMember from "../SelectMember";
 import MemberService from "../Members/MemberService";
 import AccountModel from "../Accounts/AccountModel";
+import openNotificationWithIcon from "../../Utils";
 
 interface Props extends FormComponentProps, RouteComponentProps {}
 
@@ -80,10 +81,12 @@ class AddTransaction extends Component<Props, State> {
       }
     };
 
-    const { getFieldDecorator } = this.props.form;
-    const { Option } = Select;
-    const { accounts, accountId, amount } = this.state;
 
+
+      const {getFieldDecorator} = this.props.form;
+      const {Option} = Select;
+      const {accounts, accountId, amount} = this.state;
+    
     return (
       <div>
         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
