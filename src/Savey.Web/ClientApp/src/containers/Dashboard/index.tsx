@@ -53,10 +53,10 @@ class Dashboard extends Component {
               }
             >
               <Menu.Item key="4">
-                <Link to="reports/dividends">Afiliados</Link>
+                <Link to="reports/dividends">Dividendos</Link>
               </Menu.Item>
               <Menu.Item key="5">
-                <Link to="reports/members">Dividendos</Link>
+                <Link to="reports/members">Afiliados</Link>
               </Menu.Item>
             </SubMenu>
           </Menu>

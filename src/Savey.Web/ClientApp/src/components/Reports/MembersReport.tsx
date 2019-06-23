@@ -18,6 +18,8 @@ class MembersReport extends Component<Props, State> {
     member: []
   };
 
+
+
   async componentDidMount() {}
 
   handleYearOnChange = async (year: number | undefined) => {
@@ -28,7 +30,12 @@ class MembersReport extends Component<Props, State> {
     });
   };
 
+
   render() {
+
+ 
+    
+    
     const { member, year } = this.state;
 
     const columns = [
@@ -62,10 +69,18 @@ class MembersReport extends Component<Props, State> {
         dataIndex: "total",
         key: "total"
       }
+
+    
     ];
+    
+    
 
     return (
       <div>
+      
+       
+        <h2> REPORTE DE AFILIADOS SEGUN EL AÑO  </h2>
+      
         <InputNumber
           max={9999}
           min={1999}

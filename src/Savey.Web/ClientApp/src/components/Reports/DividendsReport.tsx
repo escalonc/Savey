@@ -71,6 +71,7 @@ class DividendsReport extends Component<Props, State> {
 
     return (
       <div>
+        <h2> REPORTE DE DIVIDENDOS SEGUN EL AÑO  </h2>
         <InputNumber
           max={9999}
           min={1999}
