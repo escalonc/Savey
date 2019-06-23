@@ -161,16 +161,7 @@ class AddMember extends Component<Props, State> {
               />
             )}
           </Form.Item>
-          <Form.Item label="Fecha inicio">
-            {getFieldDecorator("date", {
-              rules: [
-                {
-                  // required: true,
-                  message: "La fecha de inicio es obligatoria"
-                }
-              ]
-            })(<DatePicker />)}
-          </Form.Item>
+          
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
               Registro
