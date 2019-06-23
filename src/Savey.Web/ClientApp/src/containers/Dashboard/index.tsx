@@ -43,6 +43,12 @@ class Dashboard extends Component {
                 <span>Pagos</span>
               </Link>
             </Menu.Item>
+            <Menu.Item key="4">
+              <Link to="credit/add">
+                <Icon type="upload" />
+                <span>Abonar</span>
+              </Link>
+            </Menu.Item>
             <SubMenu
               key="sub1"
               title={
@@ -52,10 +58,10 @@ class Dashboard extends Component {
                 </span>
               }
             >
-              <Menu.Item key="4">
+              <Menu.Item key="5">
                 <Link to="reports/dividends">Dividendos</Link>
               </Menu.Item>
-              <Menu.Item key="5">
+              <Menu.Item key="6">
                 <Link to="reports/members">Afiliados</Link>
               </Menu.Item>
             </SubMenu>

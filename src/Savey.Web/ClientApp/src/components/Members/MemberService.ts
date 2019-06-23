@@ -1,6 +1,7 @@
 import axios from "axios";
 import MemberModel from "./MemberModel";
 import config from "../../config";
+import AccountModel from "../Accounts/AccountModel";
 
 class MemberService {
   constructor(private membersUrl = `${config.baseUrl}/members`) {}
@@ -47,6 +48,19 @@ class MemberService {
     );
 
     return response.data.count as number;
+  }
+  
+  async accountsByMemberId(id: number) {
+    const response = await axios.get(
+        `${this.membersUrl}/${id}/accounts`,
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+    );
+
+    return response.data as AccountModel[];
   }
 }
 

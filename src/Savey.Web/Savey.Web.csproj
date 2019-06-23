@@ -37,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\components\Accounts\AccountModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\Members\AddMember.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\Members\MemberModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\Members\MemberService.ts" />
@@ -51,6 +52,7 @@
     <TypeScriptCompile Include="ClientApp\src\components\Reports\MembersReportModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\Reports\ReportService.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\Payments\PaymentModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\components\Transactions\AddTransaction.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\Transactions\TransactionModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\config.ts" />
   </ItemGroup>

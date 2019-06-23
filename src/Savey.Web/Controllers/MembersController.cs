@@ -64,5 +64,26 @@ namespace Savey.Web.Controllers
                 return this.Json(new {count});
             }
         }
+        
+        [HttpGet("{id}/accounts")]
+        public async Task<IEnumerable<Account>> GetAccounts(int id)
+        {
+            using (var connection = this._connectionFactory.Create())
+            {
+                var data = await connection.QueryAsync(
+                    $"select ID, MEMBER_ID, OPENING_DATE, BALANCE, ACCOUNT_TYPE from SAVEY_APP.ACCOUNTS where MEMBER_ID = {id}");
+
+                var accounts = data.Select(x => new Account
+                {
+                    Balance = x.BALANCE,
+                    Id = x.ID,
+                    AccountType = x.ACCOUNT_TYPE,
+                    MemberId = x.MEMBER_ID,
+                    OpeningDate = x.OPENING_DATE
+                });
+
+                return accounts;
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ import AddMember from "../../components/Members/AddMember";
 import AddLoan from "../../components/Loans/AddLoan";
 import AddPayment from "../../components/Payments/AddPayment";
 import MembersReport from "../../components/Reports/MembersReport";
+import AddTransaction from "../../components/Transactions/AddTransaction";
 
 const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <AddMember path="/" />
           <DividendsReport path="reports/dividends" />
           <MembersReport path="reports/members" />
+          <AddTransaction path="credit/add" />
         </Router>
       </Dashboard>
     </div>

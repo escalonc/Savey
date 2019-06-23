@@ -1,11 +1,8 @@
-
-
-
+using System.Data;
 using Savey.Web.ViewModels;
 
 namespace Savey.Web.Controllers
-{   
-    
+{
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -17,11 +14,10 @@ namespace Savey.Web.Controllers
     using Savey.Data.Entities;
     using Savey.Data.Factories;
     using Savey.Data.Repositories;
-    
+
     [Route("api/[controller]")]
-     [ApiController]
-    
-    public class Transactions :Controller
+    [ApiController]
+    public class Transactions : Controller
     {
         private readonly IConnectionFactory _connectionFactory;
 
@@ -30,19 +26,26 @@ namespace Savey.Web.Controllers
             this._connectionFactory = connectionFactory;
         }
 
-        
+        [HttpPost]
+        public async Task Create(TransactionsModel trasanction)
+        {
+            using (var connection = _connectionFactory.Create())
+            {
+                var parameters = new DynamicParameters();
 
-//        [HttpPost]
-//        public async Task Create(TransactionsModel x)
-//        {
-//            var newLoan = new Loan()
-//            {
-//               
-//            };
-//            await this.TransactionsModel.Create(newLoan);
-//        }
-//        
-        
+                parameters.Add(":P_DATE", DateTime.Now, DbType.Date);
+                parameters.Add(":P_AMOUNT", trasanction.Amount, DbType.Decimal);
+                parameters.Add(":P_TYPE", trasanction.Type, DbType.String);
+
+                parameters.Add(":P_DESCRIPTION", trasanction.Description, DbType.String);
+                parameters.Add(":P_ACCOUNT_ID", trasanction.AccountId, DbType.Int32);
+
+                await connection.ExecuteAsync("SAVEY_APP.CREATE_TRASACTIONS", parameters,
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+
         [HttpGet("{id}/accountExistingTransaction")]
         public async Task<JsonResult> AccountExistingTransaction(int id)
         {
@@ -54,6 +57,7 @@ namespace Savey.Web.Controllers
                 return this.Json(new {count});
             }
         }
+
+        
     }
 }
-    
