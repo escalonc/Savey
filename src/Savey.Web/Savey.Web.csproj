@@ -44,6 +44,7 @@
     <TypeScriptCompile Include="ClientApp\src\components\Loans\LoanModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\Loans\LoanService.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\Payments\AddPayment.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\Payments\PaymentService.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\Reports\DividendsReport.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\Reports\DividendsReportModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\Reports\MembersReport.tsx" />

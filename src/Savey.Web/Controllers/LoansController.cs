@@ -23,20 +23,20 @@ namespace Savey.Web.Controllers
             this._loanRepository = loanRepository;
             this._connectionFactory = connectionFactory;
         }
-        
+
         // GET
         public async Task<IEnumerable<Loan>> Get()
         {
             return await this._loanRepository.All();
         }
-        
+
         [HttpPost]
         public async Task Create(LoanViewModel loan)
         {
-            var newLoan = new Loan()
+            var newLoan = new Loan
             {
                 Amount = loan.Amount,
-                Balance = loan.Amount,
+                Balance = loan.Amount * (loan.AnnualInterest + 1),
                 Date = DateTime.Now,
                 Period = loan.Period,
                 AnnualInterest = loan.AnnualInterest,
@@ -46,7 +46,5 @@ namespace Savey.Web.Controllers
             };
             await this._loanRepository.Create(newLoan);
         }
-        
-        
     }
 }
