@@ -1,43 +1,41 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Savey.Data.Entities;
-using Savey.Data.Factories;
-using Savey.Data.Repositories;
+
 
 
 namespace Savey.Web.Controllers
-{   [Route("api/[controller]")]
+{   
+    
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Dapper;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Savey.Data.Entities;
+    using Savey.Data.Factories;
+    using Savey.Data.Repositories;
+    
+    [Route("api/[controller]")]
      [ApiController]
     
     public class Transactions :Controller
     {
-
-        private readonly IBaseRepository<Transaction> _transactionRepository;
         private readonly IConnectionFactory _connectionFactory;
 
         public Transactions(IBaseRepository<Member> memberRepository, IConnectionFactory connectionFactory)
         {
-            this._transactionRepository = transactionRepository;
             this._connectionFactory = connectionFactory;
         }
-
-        [HttpGet]
-        public async Task<IEnumerable<Transaction>> Get()
-        {
-            var transaction = await this._transactionRepository.All();
-            return transaction;
-        }
+        
 
         [HttpPost]
         public async Task Create(Transaction transaction)
         {
-            await this._transactionRepository.Create(transaction);
+            using (var connection=  this._connectionFactory.Create())
+            {
+                
+            }
         }
 
         [HttpGet("{id}/contributionBalance")]
@@ -68,5 +66,4 @@ namespace Savey.Web.Controllers
         }
     }
 }
-    }
-}
+    
