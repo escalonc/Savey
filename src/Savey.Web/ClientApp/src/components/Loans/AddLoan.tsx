@@ -73,7 +73,7 @@ class AddLoan extends Component<Props, State> {
   handleMemberChange = async (memberId: number) => {
     const count = await this.memberService.countExistingLoans(memberId);
 
-    this.setState({ formDisabled: !(count > 0) });
+    this.setState({ formDisabled: count > 0 });
 
     this.setState({ memberId });
   };

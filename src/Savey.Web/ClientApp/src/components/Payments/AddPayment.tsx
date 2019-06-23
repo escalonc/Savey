@@ -5,6 +5,7 @@ import { FormComponentProps } from "antd/lib/form";
 import { Button, Form } from "antd";
 import SelectMember from "../SelectMember";
 import Title from "antd/lib/typography/Title";
+import PaymentService from "./PaymentService";
 
 interface Props extends FormComponentProps, RouteComponentProps {}
 
@@ -13,8 +14,11 @@ interface State {
 }
 
 class AddPayment extends Component<Props, State> {
+  private paymentService = new PaymentService();
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { memberId } = this.state;
+    await this.paymentService.create(memberId);
   };
 
   handleOnChange = (memberId: number) => {
