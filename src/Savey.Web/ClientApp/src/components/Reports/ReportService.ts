@@ -4,22 +4,23 @@ import DividendsReportModel from "./DividendsReportModel";
 import MembersReportModel from "./MembersReportModel";
 
 class ReportService {
+  constructor(private reportsUrl = `${config.baseUrl}`) {}
 
-    constructor(private reportsUrl = `${config.baseUrl}`) {}
-    
-    async dividends(year: number) {
-        const response = await axios.get(`${this.reportsUrl}/accounts/dividends/${year}`);
-        
-        return response.data as DividendsReportModel[];
-    }
+  async dividends(year: number) {
+    const response = await axios.get(
+      `${this.reportsUrl}/accounts/dividends/${year}`
+    );
 
-    async member(year: number) {
-        const response = await axios.get(`${this.reportsUrl}/members/year/${year}`);
+    return response.data as DividendsReportModel[];
+  }
 
-        return response.data as MembersReportModel[];
-    }
+  async member(year: number) {
+    const response = await axios.get(
+      `${this.reportsUrl}/MemberReport/members/year/${year}`
+    );
 
-
+    return response.data as MembersReportModel[];
+  }
 }
 
 export default ReportService;
