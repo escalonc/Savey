@@ -3,6 +3,7 @@ import { InputNumber, Table } from "antd";
 import ReportService from "./ReportService";
 import DividendsReportModel from "./DividendsReportModel";
 import { RouteComponentProps } from "@reach/router";
+import Title from "antd/lib/typography/Title";
 
 interface Props extends RouteComponentProps {}
 
@@ -71,7 +72,9 @@ class DividendsReport extends Component<Props, State> {
 
     return (
       <div>
-        <h2> REPORTE DE DIVIDENDOS SEGUN EL AÑO  </h2>
+        <div style={{ textAlign: "center", marginBottom: 50 }}>
+          <Title level={3}>Dividendos por año</Title>
+        </div>
         <InputNumber
           max={9999}
           min={1999}

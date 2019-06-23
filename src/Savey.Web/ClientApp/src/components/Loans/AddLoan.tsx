@@ -7,6 +7,7 @@ import MemberModel from "../Members/MemberModel";
 import LoanModel from "./LoanModel";
 
 import { RouteComponentProps } from "@reach/router";
+import Title from "antd/lib/typography/Title";
 
 interface State {
   amount: number;
@@ -145,96 +146,101 @@ class AddLoan extends Component<Props, State> {
     };
 
     return (
-        
-      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+      <>
+        <div style={{ textAlign: "center", marginBottom: 50 }}>
+          <Title level={3}>Crear Prestamo para un Afiliado</Title>
+        </div>
+        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+          <Form.Item label={<span>Empleado</span>}>
+            {getFieldDecorator("member", {
+              initialValue: memberId,
+              rules: [
+                {
+                  required: true,
+                  message: "Empleado es requerido"
+                }
+              ]
+            })(
+              <Select
+                showSearch
+                style={{ width: 200 }}
+                placeholder="Seleccione un empleado"
+                optionFilterProp="children"
+                onChange={this.handleMemberChange}
+                onBlur={this.handleMemberChange}
+                filterOption={this.filterOptions}
+              >
+                {members.map(member => (
+                  <Option
+                    value={member.id}
+                    key={member.id}
+                  >{`${member.firstName} ${member.firstSurname}`}</Option>
+                ))}
+              </Select>
+            )}
+          </Form.Item>
+          <Form.Item label={<span>Periodo</span>}>
+            {getFieldDecorator("period", {
+              initialValue: period,
+              rules: [
+                {
+                  required: true
+                }
+              ]
+            })(
+              <InputNumber
+                min={1}
+                max={12}
+                onChange={this.handlePeriodChange}
+              />
+            )}
+          </Form.Item>
+          <Form.Item label={<span>Tipo</span>}>
+            {getFieldDecorator("loanType", {
+              initialValue: loanType,
+              rules: [
+                {
+                  required: true,
+                  message: "Tipo es requerido"
+                }
+              ]
+            })(
+              <Select
+                style={{ width: 200 }}
+                optionFilterProp="children"
+                onChange={this.handleLoanTypeChange}
+                onBlur={this.handleLoanTypeChange}
+                filterOption={this.filterOptions}
+              >
+                <Option value="TRUST">Fiduciario</Option>
+                <Option value="AUTO">Automatico</Option>
+              </Select>
+            )}
+          </Form.Item>
+          <Form.Item label={<span>Interés anual</span>}>
+            {getFieldDecorator("annualInterest", {
+              initialValue: annualInterest
+            })(<Input disabled={true} />)}
+          </Form.Item>
 
-        <h2> Crear Prestamo para un Afiliado </h2>
-        
-        <Form.Item label={<span>Empleado</span>}>
-          {getFieldDecorator("member", {
-            initialValue: memberId,
-            rules: [
-              {
-                required: true,
-                message: "Empleado es requerido"
-              }
-            ]
-          })(
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Seleccione un empleado"
-              optionFilterProp="children"
-              onChange={this.handleMemberChange}
-              onBlur={this.handleMemberChange}
-              filterOption={this.filterOptions}
-            >
-              {members.map(member => (
-                <Option
-                  value={member.id}
-                  key={member.id}
-                >{`${member.firstName} ${member.firstSurname}`}</Option>
-              ))}
-            </Select>
-          )}
-        </Form.Item>
-        <Form.Item label={<span>Periodo</span>}>
-          {getFieldDecorator("period", {
-            initialValue: period,
-            rules: [
-              {
-                required: true
-              }
-            ]
-          })(
-            <InputNumber min={1} max={12} onChange={this.handlePeriodChange} />
-          )}
-        </Form.Item>
-        <Form.Item label={<span>Tipo</span>}>
-          {getFieldDecorator("loanType", {
-            initialValue: loanType,
-            rules: [
-              {
-                required: true,
-                message: "Tipo es requerido"
-              }
-            ]
-          })(
-            <Select
-              style={{ width: 200 }}
-              optionFilterProp="children"
-              onChange={this.handleLoanTypeChange}
-              onBlur={this.handleLoanTypeChange}
-              filterOption={this.filterOptions}
-            >
-              <Option value="TRUST">Fiduciario</Option>
-              <Option value="AUTO">Automatico</Option>
-            </Select>
-          )}
-        </Form.Item>
-        <Form.Item label={<span>Interés anual</span>}>
-          {getFieldDecorator("annualInterest", {
-            initialValue: annualInterest
-          })(<Input disabled={true} />)}
-        </Form.Item>
-
-        <Form.Item label={<span>Monto</span>}>
-          {getFieldDecorator("amount", {
-            initialValue: amount
-          })(
-            <InputNumber
-              onChange={this.handleAmountChange}
-              max={maxAmount}
-              min={500}
-            />
-          )}
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" disabled={formDisabled}>
-            Registro
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item label={<span>Monto</span>}>
+            {getFieldDecorator("amount", {
+              initialValue: amount
+            })(
+              <InputNumber
+                onChange={this.handleAmountChange}
+                max={maxAmount}
+                min={500}
+              />
+            )}
+          </Form.Item>
+          <Form.Item {...tailFormItemLayout}>
+            <Button type="primary" htmlType="submit" disabled={formDisabled}>
+              Registro
+            </Button>
+          </Form.Item>
+        </Form>
+      </>
     );
   }
 }

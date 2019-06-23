@@ -3,6 +3,7 @@ import { InputNumber, Table } from "antd";
 import ReportService from "./ReportService";
 import MembersReportModel from "./MembersReportModel";
 import { RouteComponentProps } from "@reach/router";
+import Title from "antd/lib/typography/Title";
 
 interface Props extends RouteComponentProps {}
 
@@ -18,8 +19,6 @@ class MembersReport extends Component<Props, State> {
     member: []
   };
 
-
-
   async componentDidMount() {}
 
   handleYearOnChange = async (year: number | undefined) => {
@@ -30,12 +29,7 @@ class MembersReport extends Component<Props, State> {
     });
   };
 
-
   render() {
-
- 
-    
-    
     const { member, year } = this.state;
 
     const columns = [
@@ -69,18 +63,13 @@ class MembersReport extends Component<Props, State> {
         dataIndex: "total",
         key: "total"
       }
-
-    
     ];
-    
-    
 
     return (
       <div>
-      
-       
-        <h2> REPORTE DE AFILIADOS SEGUN EL AÑO  </h2>
-      
+        <div style={{ textAlign: "center", marginBottom: 50 }}>
+          <Title level={3}>Nuevos afiliados por año</Title>
+        </div>
         <InputNumber
           max={9999}
           min={1999}

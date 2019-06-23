@@ -4,6 +4,7 @@ import { RouteComponentProps } from "@reach/router";
 import { FormComponentProps } from "antd/lib/form";
 import { Button, Form } from "antd";
 import SelectMember from "../SelectMember";
+import Title from "antd/lib/typography/Title";
 
 interface Props extends FormComponentProps, RouteComponentProps {}
 
@@ -54,6 +55,9 @@ class AddPayment extends Component<Props, State> {
 
     return (
       <div>
+        <div style={{ textAlign: "center", marginBottom: 50 }}>
+          <Title level={3}>Crear pago</Title>
+        </div>
         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
           <SelectMember
             getFieldDecorator={getFieldDecorator}
