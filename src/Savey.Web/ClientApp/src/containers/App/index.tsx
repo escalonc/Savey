@@ -6,11 +6,13 @@ import DividendsReport from ".././../components/Reports/DividendsReport"
 
 // import AddLoan from "../../components/Loans/AddLoan";
 
+import MembersReport from "../../components/Reports/MembersReport"
+
 const App: React.FC = () => {
   return (
     <div className="App">
       <Dashboard>
-        <DividendsReport />
+        <MembersReport />
       </Dashboard>
     </div>
   );
