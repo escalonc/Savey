@@ -6,6 +6,8 @@ import MemberService from "../Members/MemberService";
 import MemberModel from "../Members/MemberModel";
 import LoanModel from "./LoanModel";
 
+import { RouteComponentProps } from "@reach/router";
+
 interface State {
   amount: number;
   maxAmount: number;
@@ -18,7 +20,7 @@ interface State {
   formDisabled: boolean;
 }
 
-interface Props extends FormComponentProps {}
+interface Props extends FormComponentProps, RouteComponentProps {}
 
 class AddLoan extends Component<Props, State> {
   private memberService = new MemberService();

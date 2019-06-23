@@ -1,15 +1,11 @@
 ﻿import React, { Component } from "react";
 
-import {
-  Form,
-  Input,
-  Button,
-  DatePicker
-} from "antd";
+import { Form, Input, Button, DatePicker } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import MemberService from "./MemberService";
+import { RouteComponentProps } from "@reach/router";
 
-interface Props extends FormComponentProps {}
+interface Props extends FormComponentProps, RouteComponentProps {}
 
 interface State {
   firstName: string;
@@ -19,50 +15,47 @@ interface State {
 }
 
 class AddMember extends Component<Props, State> {
-  
   state: State = {
     firstName: "",
     firstSurname: "",
     middleName: "",
     secondSurname: ""
   };
-  
+
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const service = new MemberService();
-    
-    const { firstName,middleName,firstSurname,secondSurname } = this.state;
-    
-    await service.create({firstName,firstSurname,middleName,secondSurname})
-   
+
+    const { firstName, middleName, firstSurname, secondSurname } = this.state;
+
+    await service.create({
+      firstName,
+      firstSurname,
+      middleName,
+      secondSurname
+    });
   };
-  
+
   handleChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ firstName: event.target.value })
+    this.setState({ firstName: event.target.value });
   };
 
   handleChangeMiddleName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ middleName: event.target.value })
+    this.setState({ middleName: event.target.value });
   };
 
   handleChangeFirstSurname = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ firstSurname: event.target.value })
+    this.setState({ firstSurname: event.target.value });
   };
 
   handleChangeSecondSurname = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ secondSurname: event.target.value })
+    this.setState({ secondSurname: event.target.value });
   };
 
-  
   render() {
     const { getFieldDecorator } = this.props.form;
-    const {
-      secondSurname,
-        firstSurname,
-         firstName,
-        middleName,
-    } = this.state;
+    const { secondSurname, firstSurname, firstName, middleName } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -105,9 +98,9 @@ class AddMember extends Component<Props, State> {
                 whitespace: true
               }
             ]
-          })(<Input name="firstName" onChange={this.handleChangeFirstName}/>)}
+          })(<Input name="firstName" onChange={this.handleChangeFirstName} />)}
         </Form.Item>
-        <Form.Item label={<span>Segundo Nombre</span>} >
+        <Form.Item label={<span>Segundo Nombre</span>}>
           {getFieldDecorator("middleName", {
             initialValue: middleName,
             rules: [
@@ -117,7 +110,9 @@ class AddMember extends Component<Props, State> {
                 whitespace: true
               }
             ]
-          })(<Input name="middleName" onChange={this.handleChangeMiddleName} />)}
+          })(
+            <Input name="middleName" onChange={this.handleChangeMiddleName} />
+          )}
         </Form.Item>
         <Form.Item label={<span>Primer Apellido</span>}>
           {getFieldDecorator("firstSurname", {
@@ -129,7 +124,12 @@ class AddMember extends Component<Props, State> {
                 whitespace: true
               }
             ]
-          })(<Input name="firstSurname" onChange={this.handleChangeFirstSurname} />)}
+          })(
+            <Input
+              name="firstSurname"
+              onChange={this.handleChangeFirstSurname}
+            />
+          )}
         </Form.Item>
         <Form.Item label={<span>Segundo Apellido</span>}>
           {getFieldDecorator("secondSurname", {
@@ -141,7 +141,12 @@ class AddMember extends Component<Props, State> {
                 whitespace: true
               }
             ]
-          })(<Input name="secondSurname" onChange={this.handleChangeSecondSurname} />)}
+          })(
+            <Input
+              name="secondSurname"
+              onChange={this.handleChangeSecondSurname}
+            />
+          )}
         </Form.Item>
         <Form.Item label="Fecha inicio">
           {getFieldDecorator("date", {

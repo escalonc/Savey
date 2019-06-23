@@ -2,13 +2,16 @@ import React, { Component } from "react";
 import { InputNumber, Table } from "antd";
 import ReportService from "./ReportService";
 import MembersReportModel from "./MembersReportModel";
+import { RouteComponentProps } from "@reach/router";
+
+interface Props extends RouteComponentProps {}
 
 interface State {
   year: number;
   member: MembersReportModel[];
 }
 
-class MembersReport extends Component<{}, State> {
+class MembersReport extends Component<Props, State> {
   reportService = new ReportService();
   state: State = {
     year: 2019,
